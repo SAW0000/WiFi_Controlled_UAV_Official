@@ -1,0 +1,385 @@
+.settings-panel, .detection-panel {
+  position: absolute;
+  top: 0;
+  right: -100%;
+  width: 100%;
+  height: 100%;
+  background-color: var(--secondary-bg-transparent);
+  z-index: 1000;
+  overflow-y: auto;
+  -webkit-transition: right 0.3s ease;
+  -moz-transition: right 0.3s ease;
+  -o-transition: right 0.3s ease;
+  transition: right 0.3s ease;
+  backdrop-filter: blur(10px);
+  
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+.settings-panel::-webkit-scrollbar,
+.detection-panel::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.settings-panel::-webkit-scrollbar-track,
+.detection-panel::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+  border-radius: 3px;
+}
+
+.settings-panel::-webkit-scrollbar-thumb,
+.detection-panel::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb);
+  border-radius: 3px;
+  transition: background-color 0.3s;
+}
+
+.settings-panel::-webkit-scrollbar-thumb:hover,
+.detection-panel::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-thumb-hover);
+}
+
+.settings-panel, .detection-panel {
+  scroll-behavior: smooth;
+  padding: 0;
+}
+
+@media (min-width: 992px) {
+  .settings-panel, .detection-panel {
+    width: 400px;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+    right: -400px;
+  }
+}
+
+.settings-panel.open, .detection-panel.open {
+  right: 0;
+}
+
+.settings-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: var(--secondary-bg);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 1001;
+}
+
+.settings-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+.close-settings {
+  background: var(--secondary-bg);
+  border: none;
+  color: var(--text-color);
+  font-size: 24px;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--nm-shadow-dark);
+  pointer-events: auto;
+}
+
+.close-settings:hover {
+  color: var(--primary-color);
+  transform: scale(1.1);
+}
+
+.close-settings:active {
+  transform: scale(0.95);
+  box-shadow: var(--nm-inner-shadow);
+}
+
+.panel-content {
+  padding: 20px;
+  padding-top: 10px;
+}
+
+.settings-section {
+  margin-bottom: 20px;
+  padding: 15px;
+  border-radius: 15px;
+  background-color: var(--card-bg);
+  box-shadow: var(--nm-shadow-dark);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.settings-section:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--nm-shadow-dark), 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.settings-section-title {
+  font-size: 16px;
+  color: var(--primary-color);
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.text-input {
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: none;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  font-size: 14px;
+  box-shadow: var(--nm-inner-shadow);
+  transition: box-shadow 0.3s;
+  pointer-events: auto;
+}
+
+.text-input:focus {
+  box-shadow: inset 0 0 0 2px var(--primary-color), var(--nm-inner-shadow);
+}
+
+.action-buttons {
+  position: sticky;
+  top: 60px;
+  background-color: var(--secondary-bg);
+  padding: 10px 20px;
+  z-index: 1000;
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.settings-button {
+  flex: 1;
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: none;
+  background-color: var(--secondary-bg);
+  color: var(--text-color);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--nm-shadow-dark);
+  pointer-events: auto;
+}
+
+.settings-button:hover {
+  transform: translateY(-2px);
+  color: var(--primary-color);
+}
+
+.settings-button:active {
+  transform: translateY(0);
+  box-shadow: var(--nm-inner-shadow);
+}
+
+.settings-button.primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.settings-button.primary:hover {
+  background-color: var(--primary-dark);
+  color: white;
+}
+
+.detection-list {
+  list-style: none;
+  padding: 20px;
+  margin-top: 0;
+}
+
+.detection-item {
+  display: flex;
+  padding: 15px;
+  border-radius: 15px;
+  background-color: var(--card-bg);
+  margin-bottom: 15px;
+  transition: all 0.3s ease;
+  box-shadow: var(--nm-shadow-dark);
+}
+
+.detection-item:hover {
+  transform: translateY(-3px) scale(1.01);
+  box-shadow: var(--nm-shadow-dark), 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.detection-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-right: 15px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s;
+}
+
+.detection-item:hover .detection-image {
+  transform: scale(1.05);
+}
+
+.detection-details {
+  flex: 1;
+}
+
+.detection-time {
+  font-size: 12px;
+  opacity: 0.7;
+  margin-bottom: 5px;
+}
+
+.detection-confidence {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.confidence-value {
+  display: inline-block;
+  padding: 3px 8px;
+  background-color: var(--primary-color);
+  border-radius: 10px;
+  font-size: 12px;
+  box-shadow: 0 2px 4px var(--primary-shadow);
+}
+
+.detection-actions {
+  margin-top: 8px;
+}
+
+.detection-button {
+  padding: 5px 10px;
+  border-radius: 8px;
+  background-color: var(--secondary-bg);
+  border: none;
+  color: var(--text-color);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--nm-shadow-dark);
+  pointer-events: auto;
+}
+
+.detection-button:hover {
+  background-color: var(--primary-color);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px var(--primary-shadow);
+  transition: all 0.2s ease;
+}
+
+.detection-button:active {
+  transform: translateY(0);
+  box-shadow: var(--nm-inner-shadow);
+}
+
+.empty-state {
+  margin: 20px;
+  padding: 30px;
+  text-align: center;
+  font-size: 16px;
+  opacity: 0.7;
+  background-color: var(--card-bg);
+  border-radius: 15px;
+  box-shadow: var(--nm-shadow-dark);
+  transition: all 0.3s ease;
+}
+
+.empty-state:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+.empty-icon {
+  font-size: 40px;
+  margin-bottom: 15px;
+  -webkit-animation: pulse-icon 2s infinite;
+  -moz-animation: pulse-icon 2s infinite;
+  -o-animation: pulse-icon 2s infinite;
+  animation: pulse-icon 2s infinite;
+}
+
+@-webkit-keyframes pulse-icon {
+  0% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.7; }
+}
+
+@-moz-keyframes pulse-icon {
+  0% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.7; }
+}
+
+@-o-keyframes pulse-icon {
+  0% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.7; }
+}
+
+@keyframes pulse-icon {
+  0% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.7; }
+}
+
+.loading-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+  color: var(--primary-color);
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(233, 69, 96, 0.3);
+  border-radius: 50%;
+  border-top-color: var(--primary-color);
+  -webkit-animation: spin 1s linear infinite;
+  -moz-animation: spin 1s linear infinite;
+  -o-animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite;
+  box-shadow: 0 0 10px var(--primary-shadow);
+}
+
+@-webkit-keyframes spin {
+  to { -webkit-transform: rotate(360deg); }
+}
+
+@-moz-keyframes spin {
+  to { -moz-transform: rotate(360deg); }
+}
+
+@-o-keyframes spin {
+  to { -o-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

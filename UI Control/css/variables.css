@@ -1,0 +1,47 @@
+:root {
+  --bg-color: #0f0f1e;
+  --secondary-bg: #1a1e2d;
+  --secondary-bg-transparent: rgba(26, 30, 45, 0.95);
+  --card-bg: #1a1e2d;
+  --text-color: #fff;
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --primary-color: #e94560;
+  --primary-dark: #c2185b;
+  --primary-shadow: rgba(233, 69, 96, 0.4);
+  --border-color: #e94560;
+  --success-color: #10b981;
+  --warning-color: #f59e0b;
+  --error-color: #ef4444;
+  --shadow-dark: rgba(0, 0, 0, 0.5);
+  --shadow-light: rgba(50, 50, 80, 0.2);
+  --inner-shadow-dark: rgba(0, 0, 0, 0.4);
+  --inner-shadow-light: rgba(50, 50, 80, 0.1);
+  --active-control-bg: #10b981;
+
+  --nm-shadow-dark: 4px 4px 8px var(--shadow-dark);
+  --nm-shadow-light: -4px -4px 8px var(--shadow-light);
+  --nm-inner-shadow: inset 2px 2px 5px var(--inner-shadow-dark), 
+                     inset -2px -2px 5px var(--inner-shadow-light);
+                    
+  --scrollbar-track: rgba(26, 30, 45, 0.6);
+  --scrollbar-thumb: var(--primary-color);
+  --scrollbar-thumb-hover: #d63a54;
+}
+
+body.light-theme {
+  --bg-color: #f0f4fa;
+  --secondary-bg: #e6eef9;
+  --secondary-bg-transparent: rgba(230, 238, 249, 0.95);
+  --card-bg: #e6eef9;
+  --text-color: #333;
+  --text-secondary: rgba(0, 0, 0, 0.7);
+  --shadow-dark: #a3b1c6;
+  
+  --nm-shadow-dark: 3px 3px 6px var(--shadow-dark);
+  --nm-shadow-light: none;
+  --nm-inner-shadow: inset 2px 2px 5px var(--shadow-dark);
+  
+  --scrollbar-track: rgba(230, 238, 249, 0.6);
+  --scrollbar-thumb: var(--primary-color);
+  --scrollbar-thumb-hover: #d63a54;
+}

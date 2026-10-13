@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drone Control Mobile UI</title>
+  
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/controls.css">
+  <link rel="stylesheet" href="css/navigation.css">
+  <link rel="stylesheet" href="css/panels.css">
+  <link rel="stylesheet" href="css/modals.css">
+</head>
+<body>
+  <div class="mobile-interface" id="mobileInterface">
+    
+    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMDAwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGFsaWdubWVudC1iYXNlbGluZT0ibWlkZGxlIiBmaWxsPSIjZTk0NTYwIj7ZhNinINmK2YjYrNivINin2KrYtdin2YQ8L3RleHQ+PC9zdmc+" alt="Drone Live Stream" class="video-stream" id="videoStream" draggable="false">
+    
+    
+    <div class="status-bar">
+      <div class="status-indicator status-connecting" id="connectionStatus">
+        <div class="status-dot"></div>
+        <span id="statusText">جاري الاتصال...</span>
+      </div>
+    </div>
+    
+    
+    <div class="notification-container" id="notification-container"></div>
+    
+    
+    <div class="top-controls">
+      <button class="control-button" id="settingsBtn">⚙️</button>
+      <button class="control-button" id="detectionBtn">👁️</button>
+      <button class="control-button" id="testingBtn">📡</button>
+    </div>
+    
+    
+    <div class="controls-container">
+      
+      <div class="d-pad-container" id="dpadContainer">
+        <div class="d-pad">
+          <div class="d-pad-label">Pitch/Roll</div>
+          <div class="d-pad-button d-pad-up" id="up1">↑</div>
+          <div class="d-pad-button d-pad-right" id="right1">→</div>
+          <div class="d-pad-button d-pad-down" id="down1">↓</div>
+          <div class="d-pad-button d-pad-left" id="left1">←</div>
+        </div>
+      </div>
+      
+      
+      <div class="joystick-pitch-roll-container" id="joystickPitchRollContainer" style="display: none;">
+        <div class="joystick-label">Pitch/Roll</div>
+        <div class="joystick-base" id="joystickPitchRollBase">
+          <div class="joystick-handle" id="joystickPitchRollHandle"></div>
+        </div>
+        <div class="joystick-pitch-roll-status" id="joystickPitchRollStatus">Click to activate</div>
+      </div>
+      
+      
+      <div class="joystick-container" id="joystickContainer">
+        <div class="joystick-label">Throttle/Yaw</div>
+        <div class="joystick-base">
+          <div class="joystick-handle" id="joystickHandle"></div>
+        </div>
+        <div class="joystick-status" id="joystickStatus">Click to activate</div>
+      </div>
+    </div>
+    
+    
+    <div class="bottom-nav-container">
+      <div class="nav-bar">
+        <svg width="400" height="80" viewBox="0 0 400 80" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            
+            <filter id="darkNeumorphism">
+              <feDropShadow dx="4" dy="4" stdDeviation="4" flood-color="rgba(0,0,0,0.5)" flood-opacity="1"/>
+              <feDropShadow dx="-4" dy="-4" stdDeviation="4" flood-color="rgba(50,50,80,0.2)" flood-opacity="1"/>
+            </filter>
+            
+            <filter id="darkInnerShadow">
+              <feOffset dx="2" dy="2" />
+              <feGaussianBlur stdDeviation="2" result="offset-blur"/>
+              <feComposite operator="out" in="SourceGraphic" in2="offset-blur" result="inverse"/>
+              <feFlood flood-color="black" flood-opacity="0.4" result="color"/>
+              <feComposite operator="in" in="color" in2="inverse" result="shadow"/>
+              <feComposite operator="over" in="shadow" in2="SourceGraphic"/>
+            </filter>
+            
+            
+            <filter id="single-shadow-out" x="-30%" y="-30%" width="160%" height="160%">
+              <feDropShadow dx="3" dy="3" stdDeviation="2" flood-color="#a3b1c6" flood-opacity="0.8"/>
+            </filter>
+            
+            <filter id="button-pressed" x="-30%" y="-30%" width="160%" height="160%">
+              <feOffset dx="1" dy="1" />
+              <feGaussianBlur stdDeviation="1" result="offset-blur"/>
+              <feComposite operator="out" in="SourceGraphic" in2="offset-blur" result="inverse"/>
+              <feFlood flood-color="#a3b1c6" flood-opacity="0.8" result="color"/>
+              <feComposite operator="in" in="color" in2="inverse" result="shadow"/>
+              <feComposite operator="over" in="shadow" in2="SourceGraphic"/>
+            </filter>
+            
+            
+            <linearGradient id="lightGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#e6eef9" />
+              <stop offset="100%" stop-color="#d5def0" />
+            </linearGradient>
+            
+            <linearGradient id="activeNeumorphic" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#e94560" />
+              <stop offset="100%" stop-color="#d63a54" />
+            </linearGradient>
+            
+            
+            <linearGradient id="armedGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#10b981" />
+              <stop offset="100%" stop-color="#059669" />
+            </linearGradient>
+            
+            
+            <linearGradient id="failsafeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#f97316" />
+              <stop offset="100%" stop-color="#ef4444" />
+            </linearGradient>
+            
+            <linearGradient id="pressedActiveGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#d63a54" />
+              <stop offset="100%" stop-color="#c22945" />
+            </linearGradient>
+            
+            <linearGradient id="pressedLightGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#d5def0" />
+              <stop offset="100%" stop-color="#c5d0e5" />
+            </linearGradient>
+            
+            
+            <linearGradient id="controlActiveGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" /> 
+              <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+            </linearGradient>
+            
+            <linearGradient id="ledActiveGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#ffc107;stop-opacity:1" /> 
+              <stop offset="100%" style="stop-color:#ff9800;stop-opacity:1" />
+            </linearGradient>
+            
+            <linearGradient id="landingGearActiveGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#e94560;stop-opacity:1" /> 
+              <stop offset="100%" style="stop-color:#c2185b;stop-opacity:1" />
+            </linearGradient>
+            
+            <linearGradient id="controlInactiveGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#1a1e2d;stop-opacity:1" /> 
+              <stop offset="100%" style="stop-color:#2a2e3d;stop-opacity:1" />
+            </linearGradient>
+            
+            <linearGradient id="controlInactiveGradientLight" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#e0e5ec;stop-opacity:1" /> 
+              <stop offset="100%" style="stop-color:#d4d9e0;stop-opacity:1" />
+            </linearGradient>
+          </defs>
+          
+          
+          <rect id="navBackground" x="20" y="10" width="360" height="60" rx="30" ry="30" fill="#1a1e2d" filter="url(#darkNeumorphism)"/>
+          
+          
+          <g transform="translate(80, 40)" class="nav-button disabled" id="landingGearBtn">
+            <circle id="landingGearBg" r="25" fill="#1a1e2d" filter="url(#darkNeumorphism)"/>
+            
+            
+            <g id="landingGearIcon" stroke="#e94560" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" transform="scale(0.6)">
+              
+              <line x1="-25" y1="-10" x2="25" y2="-10"/>
+              
+              
+              <line x1="-25" y1="-10" x2="-35" y2="-10"/>
+              
+              
+              <line x1="25" y1="-10" x2="35" y2="-10"/>
+              
+              
+              <path d="M-25,-10 Q-25,10 -15,10 H15 Q25,10 25,-10"/>
+              
+              
+              <path d="M-5,10 Q-5,15 0,15 Q5,15 5,10"/>
+              
+              
+              <line id="left-leg" x1="-15" y1="10" x2="-25" y2="10"/>
+              <line id="right-leg" x1="15" y1="10" x2="25" y2="10"/>
+            </g>
+          </g>
+          
+          
+          <g transform="translate(200, 40)" class="nav-button" id="controlBtn">
+            
+            <circle id="controlBg" r="30" fill="#1a1e2d" filter="url(#darkNeumorphism)"/>
+            
+            
+            <g id="powerIcon" fill="none" stroke="#e94560" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              
+              <circle cx="0" cy="0" r="15" stroke-width="2.5"/>
+              
+              <line x1="0" y1="-7" x2="0" y2="5"/>
+            </g>
+          </g>
+          
+          
+          <g transform="translate(320, 40)" class="nav-button disabled" id="ledBtn">
+            <circle id="ledBg" r="25" fill="#1a1e2d" filter="url(#darkNeumorphism)"/>
+            
+            
+            <g id="ledIcon" stroke="#e94560" fill="none" stroke-width="2">
+              <path d="M0,-15 C-8,-15 -15,-8 -15,0 C-15,10 -5,10 0,15 C5,10 15,10 15,0 C15,-8 8,-15 0,-15 Z"/>
+              <path d="M-5,15 L5,15"/>
+            </g>
+          </g>
+        </svg>
+      </div>
+    </div>
+    
+    
+    <div class="settings-panel" id="settingsPanel">
+      <div class="settings-header">
+        <h2 class="settings-title">Settings</h2>
+        <button class="close-settings" id="closeSettingsBtn">✕</button>
+      </div>
+      
+      <div class="panel-content">
+        
+        <div class="settings-section">
+          <h3 class="settings-section-title">Failsafe Settings</h3>
+          
+          
+          <div class="slider-wrapper">
+            <div class="slider-label">
+              <span class="slider-name">Failsafe Roll</span>
+              <div class="slider-value-container">
+                <input type="number" class="slider-value-input" id="failsafeRollValueInput" value="1500" min="950" max="2000">
+              </div>
+            </div>
+            <div class="slider-progress" data-value="1500" data-min="950" data-max="2000">
+              <input type="range" min="950" max="2000" value="1500" class="slider" id="failsafeRollSlider">
+            </div>
+          </div>
+          
+          
+          <div class="slider-wrapper">
+            <div class="slider-label">
+              <span class="slider-name">Failsafe Pitch</span>
+              <div class="slider-value-container">
+                <input type="number" class="slider-value-input" id="failsafePitchValueInput" value="1500" min="950" max="2000">
+              </div>
+            </div>
+            <div class="slider-progress" data-value="1500" data-min="950" data-max="2000">
+              <input type="range" min="950" max="2000" value="1500" class="slider" id="failsafePitchSlider">
+            </div>
+          </div>
+          
+          
+          <div class="slider-wrapper">
+            <div class="slider-label">
+              <span class="slider-name">Failsafe Throttle</span>
+              <div class="slider-value-container">
+                <input type="number" class="slider-value-input" id="failsafeThrottleValueInput" value="885" min="885" max="2000">
+              </div>
+            </div>
+            <div class="slider-progress" data-value="885" data-min="885" data-max="2000">
+              <input type="range" min="885" max="2000" value="885" class="slider" id="failsafeThrottleSlider">
+            </div>
+          </div>
+          
+          
+          <div class="slider-wrapper">
+            <div class="slider-label">
+              <span class="slider-name">Failsafe Yaw</span>
+              <div class="slider-value-container">
+                <input type="number" class="slider-value-input" id="failsafeYawValueInput" value="1500" min="950" max="2000">
+              </div>
+            </div>
+            <div class="slider-progress" data-value="1500" data-min="950" data-max="2000">
+              <input type="range" min="950" max="2000" value="1500" class="slider" id="failsafeYawSlider">
+            </div>
+          </div>
+        </div>
+        
+        
+        <div class="settings-section">
+          <h3 class="settings-section-title">Control Smoothing</h3>
+          
+          
+          <div class="input-group" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
+            <span>Enable Smoothing</span>
+            <div class="theme-toggle-wrapper">
+              <input type="checkbox" id="smoothingToggle" class="theme-toggle" checked>
+              <span class="toggle-slider"></span>
+            </div>
+          </div>
+          
+          
+          <div id="smoothingFactorContainer">
+            <div class="slider-wrapper">
+              <div class="slider-label">
+                <span class="slider-name">Smoothing Factor</span>
+                <div class="slider-value-container">
+                  <input type="number" class="slider-value-input" id="smoothingFactorValueInput" value="30" min="10" max="90">
+                </div>
+              </div>
+              <div class="slider-progress" data-value="30" data-min="10" data-max="90">
+                <input type="range" min="10" max="90" value="30" class="slider" id="smoothingFactorSlider">
+              </div>
+              <div class="slider-description" style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">
+                Lower values = smoother, slower response; higher values = faster response, less smoothing
+              </div>
+            </div>
+          </div>
+          
+          
+          <div id="throttleDescentContainer">
+            <div class="slider-wrapper">
+              <div class="slider-label">
+                <span class="slider-name">Throttle Descent Rate</span>
+                <div class="slider-value-container">
+                  <input type="number" class="slider-value-input" id="throttleDescentRateValueInput" value="800" min="200" max="2000">
+                </div>
+              </div>
+              <div class="slider-progress" data-value="800" data-min="200" data-max="2000">
+                <input type="range" min="200" max="2000" value="800" class="slider" id="throttleDescentRateSlider">
+              </div>
+              <div class="slider-description" style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">
+                Units per second (200 = slow, 2000 = fast)
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        
+        <div class="settings-section">
+          <h3 class="settings-section-title">Arm/Disarm Settings</h3>
+          
+          
+          <div class="slider-wrapper">
+            <div class="slider-label">
+              <div class="channel-number-container">
+                <span class="slider-name">Arming Channel</span>
+                <input type="number" class="channel-number-input" id="armingChannelInput" value="4" min="0" max="7">
+              </div>
+              <div class="slider-value-container">
+                <input type="number" class="slider-value-input" id="armingValueInput" value="2000" min="950" max="2000">
+              </div>
+            </div>
+            <div class="slider-progress" data-value="2000" data-min="950" data-max="2000">
+              <input type="range" min="950" max="2000" value="2000" class="slider" id="armingSlider">
+            </div>
+          </div>
+          
+          
+          <div class="slider-wrapper">
+            <div class="slider-label">
+              <div class="channel-number-container">
+                <span class="slider-name">Disarming Channel</span>
+                <input type="number" class="channel-number-input" id="disarmingChannelInput" value="4" min="0" max="7">
+              </div>
+              <div class="slider-value-container">
+                <input type="number" class="slider-value-input" id="disarmingValueInput" value="950" min="950" max="2000">
+              </div>
+            </div>
+            <div class="slider-progress" data-value="950" data-min="950" data-max="2000">
+              <input type="range" min="950" max="2000" value="950" class="slider" id="disarmingSlider">
+            </div>
+          </div>
+        </div>
+        
+        
+        <div class="settings-section">
+          <h3 class="settings-section-title">Control Settings</h3>
+          
+          
+          <div class="input-group">
+            <label class="input-label">Control Mode</label>
+            <select class="text-input" id="controlModeSelector">
+              <option value="dpad">D-Pad Mode</option>
+              <option value="joystick">Joystick Mode</option>
+            </select>
+          </div>
+          
+          
+          <div class="input-group">
+            <label class="input-label">Select Control Button</label>
+            <select class="text-input" id="buttonSelector">
+              <option value="default">Select a control button</option>
+              <option value="pitch">Pitch Control</option>
+              <option value="roll">Roll Control</option>
+              <option value="yaw">Yaw Control</option>
+            </select>
+          </div>
+          <div id="buttonSettingsPanel" style="display: none;">
+            
+          </div>
+        </div>
+        
+        
+        <div class="settings-section">
+          <h3 class="settings-section-title">Connection Settings</h3>
+          
+          <div class="input-group">
+            <label class="input-label">Stream URL</label>
+            <input type="text" class="text-input" value="http://192.168.8.100:81/stream" id="streamUrlInput">
+          </div>
+          
+          <div class="input-group">
+            <label class="input-label">WebSocket IP Address</label>
+            <input type="text" class="text-input" value="192.168.8.100" id="ipAddressInput">
+          </div>
+          
+          <div class="input-group">
+            <label class="input-label">WebSocket Port</label>
+            <input type="number" class="text-input" value="82" id="wsPortInput">
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">WebSocket Access Token</label>
+            <input type="password" class="text-input" placeholder="Device password" id="wsTokenInput" autocomplete="off">
+          </div>
+          
+          <div class="input-group">
+            <label class="input-label">Human Detection URL</label>
+            <input type="text" class="text-input" placeholder="http://localhost:8000" id="detectionUrlInput">
+          </div>
+          
+          <button class="settings-button primary" id="applySettingsBtn">Apply Settings</button>
+        </div>
+        
+        
+        <div class="settings-section">
+          <h3 class="settings-section-title">Theme Settings</h3>
+          
+          <div class="input-group" style="display: flex; align-items: center; justify-content: space-between;">
+            <span>Dark Mode</span>
+            <div class="theme-toggle-wrapper">
+              <input type="checkbox" id="themeToggle" class="theme-toggle">
+              <span class="toggle-slider"></span>
+            </div>
+          </div>
+        </div>
+        
+        
+        <div class="settings-section">
+          <h3 class="settings-section-title">Import/Export Settings</h3>
+          
+          <div class="button-group">
+            <button class="settings-button" id="exportSettingsBtn">Export Settings</button>
+            <button class="settings-button" id="importSettingsBtn">Import Settings</button>
+          </div>
+          <input type="file" id="importSettingsInput" style="display: none;" accept=".json">
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="settings-panel" id="testingPanel">
+      <div class="settings-header">
+        <h2 class="settings-title">Signal Testing</h2>
+        <button class="close-settings" id="closeTestingBtn">✕</button>
+      </div>
+      
+      <div class="panel-content">
+        <div class="settings-section">
+          <h3 class="settings-section-title">Test Actions</h3>
+          <div class="test-actions-container">
+            <button class="settings-button" id="resetChannelsBtn">Reset Channels</button>
+            <button class="settings-button success-button" id="armingTestBtn">Arming Test</button>
+            <button class="settings-button danger-button" id="disarmingTestBtn">Disarming Test</button>
+          </div>
+        </div>
+        
+        <div class="settings-section">
+          <h3 class="settings-section-title">Channel Test Controls</h3>
+          
+          
+          <div class="slider-wrapper channel-test-wrapper">
+            <div class="slider-label channel-test-label">
+              <div class="channel-number-container">
+                <span class="slider-name">Channel</span>
+                <input type="number" class="channel-number-input" id="channel1NumberInput" value="0" min="0" max="7">
+              </div>
+              <div class="slider-value-container">
+                <input type="number" class="slider-value-input" id="channel1ValueInput" value="1500" min="950" max="2000">
+              </div>
+            </div>
+            <div class="slider-progress" data-value="1500" data-min="950" data-max="2000">
+              <input type="range" min="950" max="2000" value="1500" class="slider" id="channel1Slider">
+            </div>
+          </div>
+          
+          
+          <div class="slider-wrapper channel-test-wrapper">
+            <div class="slider-label channel-test-label">
+              <div class="channel-number-container">
+                <span class="slider-name">Channel</span>
+                <input type="number" class="channel-number-input" id="channel2NumberInput" value="1" min="0" max="7">
+              </div>
+              <div class="slider-value-container">
+                <input type="number" class="slider-value-input" id="channel2ValueInput" value="1500" min="950" max="2000">
+              </div>
+            </div>
+            <div class="slider-progress" data-value="1500" data-min="950" data-max="2000">
+              <input type="range" min="950" max="2000" value="1500" class="slider" id="channel2Slider">
+            </div>
+          </div>
+          
+          
+          <div class="slider-wrapper channel-test-wrapper">
+            <div class="slider-label channel-test-label">
+              <div class="channel-number-container">
+                <span class="slider-name">Channel</span>
+                <input type="number" class="channel-number-input" id="channel3NumberInput" value="2" min="0" max="7">
+              </div>
+              <div class="slider-value-container">
+                <input type="number" class="slider-value-input" id="channel3ValueInput" value="885" min="885" max="2000">
+              </div>
+            </div>
+            <div class="slider-progress" data-value="885" data-min="885" data-max="2000">
+              <input type="range" min="885" max="2000" value="885" class="slider" id="channel3Slider">
+            </div>
+          </div>
+          
+          
+          <div class="slider-wrapper channel-test-wrapper">
+            <div class="slider-label channel-test-label">
+              <div class="channel-number-container">
+                <span class="slider-name">Channel</span>
+                <input type="number" class="channel-number-input" id="channel4NumberInput" value="3" min="0" max="7">
+              </div>
+              <div class="slider-value-container">
+                <input type="number" class="slider-value-input" id="channel4ValueInput" value="1500" min="950" max="2000">
+              </div>
+            </div>
+            <div class="slider-progress" data-value="1500" data-min="950" data-max="2000">
+              <input type="range" min="950" max="2000" value="1500" class="slider" id="channel4Slider">
+            </div>
+          </div>
+          
+          
+          <div class="slider-wrapper channel-test-wrapper">
+            <div class="slider-label channel-test-label">
+              <div class="channel-number-container">
+                <span class="slider-name">Channel</span>
+                <input type="number" class="channel-number-input" id="channel5NumberInput" value="4" min="0" max="7">
+              </div>
+              <div class="slider-value-container">
+                <input type="number" class="slider-value-input" id="channel5ValueInput" value="1500" min="950" max="2000">
+              </div>
+            </div>
+            <div class="slider-progress" data-value="1500" data-min="950" data-max="2000">
+              <input type="range" min="950" max="2000" value="1500" class="slider" id="channel5Slider">
+            </div>
+          </div>
+          
+          
+          <div class="slider-wrapper channel-test-wrapper">
+            <div class="slider-label channel-test-label">
+              <div class="channel-number-container">
+                <span class="slider-name">Channel</span>
+                <input type="number" class="channel-number-input" id="channel6NumberInput" value="5" min="0" max="7">
+              </div>
+              <div class="slider-value-container">
+                <input type="number" class="slider-value-input" id="channel6ValueInput" value="1500" min="950" max="2000">
+              </div>
+            </div>
+            <div class="slider-progress" data-value="1500" data-min="950" data-max="2000">
+              <input type="range" min="950" max="2000" value="1500" class="slider" id="channel6Slider">
+            </div>
+          </div>
+          
+          
+          <div class="slider-wrapper channel-test-wrapper">
+            <div class="slider-label channel-test-label">
+              <div class="channel-number-container">
+                <span class="slider-name">Channel</span>
+                <input type="number" class="channel-number-input" id="channel7NumberInput" value="6" min="0" max="7">
+              </div>
+              <div class="slider-value-container">
+                <input type="number" class="slider-value-input" id="channel7ValueInput" value="1500" min="950" max="2000">
+              </div>
+            </div>
+            <div class="slider-progress" data-value="1500" data-min="950" data-max="2000">
+              <input type="range" min="950" max="2000" value="1500" class="slider" id="channel7Slider">
+            </div>
+          </div>
+          
+          
+          <div class="slider-wrapper channel-test-wrapper">
+            <div class="slider-label channel-test-label">
+              <div class="channel-number-container">
+                <span class="slider-name">Channel</span>
+                <input type="number" class="channel-number-input" id="channel8NumberInput" value="7" min="0" max="7">
+              </div>
+              <div class="slider-value-container">
+                <input type="number" class="slider-value-input" id="channel8ValueInput" value="1500" min="950" max="2000">
+              </div>
+            </div>
+            <div class="slider-progress" data-value="1500" data-min="950" data-max="2000">
+              <input type="range" min="950" max="2000" value="1500" class="slider" id="channel8Slider">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="detection-panel" id="detectionPanel">
+      <div class="settings-header">
+        <h2 class="settings-title">Human Detection</h2>
+        <button class="close-settings" id="closeDetectionBtn">✕</button>
+      </div>
+      
+      <div class="action-buttons">
+        <button class="settings-button primary" id="refreshDetectionsBtn">Refresh</button>
+        <button class="settings-button" id="clearDetectionsBtn">Clear All</button>
+      </div>
+      
+      <div class="loading-indicator" id="loadingIndicator">
+        <div class="loading-spinner"></div>
+      </div>
+      
+      <ul class="detection-list" id="detectionList">
+        
+      </ul>
+      
+      
+      <div class="empty-state" id="emptyState">
+        <div class="empty-icon">👁️</div>
+        <p>لم يتم اكتشاف الاشخاص حتى الان</p>
+      </div>
+    </div>
+
+    
+    <div class="confirm-dialog" id="confirmDialog">
+      <div class="confirm-title">تأكيد</div>
+      <div class="confirm-message" id="confirmMessage"></div>
+      <div class="confirm-actions">
+        <button class="confirm-button cancel" id="cancelButton">إلغاء</button>
+        <button class="confirm-button confirm" id="confirmButton">تأكيد</button>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="duplicate-modal" id="duplicateModal" style="display: none;">
+    <div class="duplicate-container">
+      <div class="duplicate-icon">⚠️</div>
+      <div class="duplicate-title">تم فتح التطبيق بالفعل</div>
+      <div class="duplicate-message">
+        يجب فتح نافذة واحدة فقط للتحكم بالطائرة. الرجاء إغلاق هذه النافذة واستخدام النافذة الأخرى التي تم فتحها مسبقاً.
+      </div>
+      <div class="duplicate-buttons">
+        <button class="duplicate-button secondary" id="viewOnlyBtn">وضع المشاهدة</button>
+        <button class="duplicate-button primary" id="takeControlBtn">أخذ التحكم</button>
+      </div>
+    </div>
+  </div>
+
+  
+  <script src="js/config.js"></script>
+  <script src="js/instance.js"></script>
+  <script src="js/websocket.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/controls.js"></script>
+  <script src="js/settings.js"></script>
+  <script src="js/testing.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/touchpad.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

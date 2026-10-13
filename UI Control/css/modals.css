@@ -1,0 +1,160 @@
+.confirm-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  background-color: var(--secondary-bg);
+  border-radius: 20px;
+  border: none;
+  padding: 25px;
+  width: 90%;
+  max-width: 330px;
+  box-shadow: var(--nm-shadow-dark);
+  z-index: 1500;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.confirm-dialog.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.confirm-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: var(--primary-color);
+  text-align: center;
+}
+
+.confirm-message {
+  margin-bottom: 25px;
+  text-align: center;
+  color: var(--text-color);
+  font-size: 16px;
+}
+
+.confirm-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.confirm-button {
+  flex: 1;
+  padding: 12px;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 15px;
+  border: none;
+  box-shadow: var(--nm-shadow-dark);
+  pointer-events: auto;
+}
+
+.confirm-button.confirm {
+  background-color: var(--error-color);
+  color: white;
+}
+
+.confirm-button.cancel {
+  background-color: var(--secondary-bg);
+  color: var(--text-color);
+}
+
+.confirm-button:hover {
+  transform: translateY(-2px);
+}
+
+.confirm-button:active {
+  transform: translateY(0);
+  box-shadow: var(--nm-inner-shadow);
+}
+
+.duplicate-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 2000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.duplicate-container {
+  background-color: var(--secondary-bg);
+  border-radius: 20px;
+  box-shadow: var(--nm-shadow-dark);
+  width: 90%;
+  max-width: 400px;
+  padding: 30px;
+  text-align: center;
+  position: relative;
+}
+
+.duplicate-icon {
+  font-size: 50px;
+  color: var(--error-color);
+  margin-bottom: 20px;
+  animation: pulse 2s infinite;
+}
+
+.duplicate-title {
+  font-size: 22px;
+  font-weight: bold;
+  color: var(--primary-color);
+  margin-bottom: 15px;
+}
+
+.duplicate-message {
+  font-size: 16px;
+  margin-bottom: 25px;
+  line-height: 1.5;
+}
+
+.duplicate-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.duplicate-button {
+  padding: 12px 25px;
+  border-radius: 10px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--nm-shadow-dark);
+}
+
+.duplicate-button.primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.duplicate-button.secondary {
+  background-color: var(--secondary-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+.duplicate-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.duplicate-button:active {
+  transform: translateY(0);
+  box-shadow: var(--nm-inner-shadow);
+}

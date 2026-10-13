@@ -1,0 +1,152 @@
+.bottom-nav-container {
+  position: fixed;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 120;
+}
+
+.nav-bar svg {
+  overflow: visible;
+}
+
+.nav-button circle,
+#controlBg,
+#landingGearBg,
+#ledBg {
+  transition: fill 0.3s, filter 0.3s, transform 0.3s;
+}
+
+body.light-theme #controlBg:not(.active):not(.failsafe):not(.armed),
+body.light-theme #landingGearBg:not(.active),
+body.light-theme #ledBg:not(.active) {
+  fill: url(#lightGradient);
+  filter: url(#single-shadow-out);
+}
+
+body.light-theme #controlBg.active,
+body.light-theme #landingGearBg.active,
+body.light-theme #ledBg.active {
+  fill: url(#activeNeumorphic);
+  filter: url(#single-shadow-out);
+}
+
+body.light-theme #controlBg.armed {
+  fill: url(#armedGradient);
+  filter: url(#single-shadow-out);
+}
+
+body.light-theme #controlBg.failsafe {
+  fill: url(#failsafeGradient);
+  filter: url(#single-shadow-out);
+}
+
+body.light-theme #controlBtn:active #controlBg,
+body.light-theme #landingGearBtn:active #landingGearBg,
+body.light-theme #ledBtn:active #ledBg {
+  transform: scale(0.95);
+  filter: url(#button-pressed);
+}
+
+.nav-button.active circle,
+#controlBg.active,
+#landingGearBg.active,
+#ledBg.active {
+  fill: var(--primary-color) !important;
+  stroke: none !important;
+}
+
+#controlBg.armed {
+  fill: #10b981 !important;
+  stroke: none !important;
+}
+
+#controlBg.failsafe {
+  fill: #f97316 !important;
+  stroke: none !important;
+}
+
+@keyframes failsafeFlash {
+  0% { fill: #ef4444; }
+  50% { fill: #f97316; }
+  100% { fill: #ef4444; }
+}
+
+#controlBg.failsafe-flashing {
+  animation: failsafeFlash 1s infinite;
+}
+
+.nav-button.active path,
+.nav-button.active line,
+.nav-button.active circle,
+#controlBtn.active #powerIcon,
+#landingGearBtn.active #landingGearIcon,
+#ledBtn.active #ledIcon {
+  stroke: white !important;
+}
+
+#controlBtn.armed #powerIcon,
+#controlBtn.failsafe #powerIcon {
+  stroke: white !important;
+}
+
+body:not(.light-theme) .nav-button.active circle,
+body:not(.light-theme) #controlBg.active,
+body:not(.light-theme) #landingGearBg.active,
+body:not(.light-theme) #ledBg.active {
+  filter: drop-shadow(0 0 5px var(--primary-shadow)) !important;
+}
+
+body:not(.light-theme) #controlBg.armed {
+  filter: drop-shadow(0 0 5px rgba(16, 185, 129, 0.5)) !important;
+}
+
+body:not(.light-theme) #controlBg.failsafe {
+  filter: drop-shadow(0 0 5px rgba(249, 115, 22, 0.5)) !important;
+}
+
+#landingGearBtn, #controlBtn, #ledBtn {
+  cursor: pointer;
+  pointer-events: auto;
+  touch-action: manipulation;
+}
+
+#landingGearBtn:active #landingGearBg,
+#controlBtn:active #controlBg,
+#ledBtn:active #ledBg {
+  transform: scale(0.95);
+}
+
+@-webkit-keyframes scrollIndicator {
+  0% { opacity: 0.7; height: 50px; transform: translateY(0); }
+  50% { opacity: 0.4; height: 30px; transform: translateY(10px); }
+  100% { opacity: 0.7; height: 50px; transform: translateY(0); }
+}
+
+@-moz-keyframes scrollIndicator {
+  0% { opacity: 0.7; height: 50px; transform: translateY(0); }
+  50% { opacity: 0.4; height: 30px; transform: translateY(10px); }
+  100% { opacity: 0.7; height: 50px; transform: translateY(0); }
+}
+
+@-o-keyframes scrollIndicator {
+  0% { opacity: 0.7; height: 50px; transform: translateY(0); }
+  50% { opacity: 0.4; height: 30px; transform: translateY(10px); }
+  100% { opacity: 0.7; height: 50px; transform: translateY(0); }
+}
+
+@keyframes scrollIndicator {
+  0% { opacity: 0.7; height: 50px; transform: translateY(0); }
+  50% { opacity: 0.4; height: 30px; transform: translateY(10px); }
+  100% { opacity: 0.7; height: 50px; transform: translateY(0); }
+}
+
+#landingGearBtn.disabled,
+#ledBtn.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

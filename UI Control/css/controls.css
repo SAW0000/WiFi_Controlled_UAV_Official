@@ -1,0 +1,419 @@
+.controls-container {
+  position: fixed;
+  bottom: 100px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  z-index: 100;
+  box-sizing: border-box;
+  touch-action: none;
+}
+
+.d-pad-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.d-pad {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.d-pad-label {
+  position: absolute;
+  top: -30px;
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.d-pad-button {
+  position: absolute;
+  background-color: var(--secondary-bg);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.15s ease;
+  box-shadow: var(--nm-shadow-dark);
+  color: var(--text-color);
+  pointer-events: auto;
+}
+
+.d-pad-up {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 40px;
+  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+}
+
+.d-pad-right {
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
+}
+
+.d-pad-down {
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 40px;
+  clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+}
+
+.d-pad-left {
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  clip-path: polygon(0% 50%, 100% 0%, 100% 100%);
+}
+
+.d-pad-button:active, .d-pad-button.active {
+  background-color: var(--primary-color);
+  box-shadow: var(--nm-inner-shadow);
+}
+
+.joystick-pitch-roll-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  touch-action: none;
+}
+
+.joystick-container, .joystick-pitch-roll-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  touch-action: none;
+}
+
+.joystick-label {
+  position: absolute;
+  top: -30px;
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.joystick-base {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: var(--secondary-bg);
+  box-shadow: var(--nm-inner-shadow);
+  margin: 0 auto;
+  touch-action: none;
+}
+
+.joystick-handle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  box-shadow: var(--nm-shadow-dark);
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  pointer-events: none;
+}
+
+.joystick-handle.active {
+  transform: translate(-50%, -50%) scale(0.95);
+  box-shadow: var(--nm-inner-shadow);
+}
+
+.joystick-status, .joystick-pitch-roll-status {
+  position: absolute;
+  bottom: -25px;
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.joystick-status.active, .joystick-pitch-roll-status.active {
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+.slider-wrapper {
+  margin-bottom: 15px;
+}
+
+.slider-label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.slider-name {
+  font-size: 14px;
+}
+
+.slider-value {
+  font-size: 14px;
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+.slider-value-container {
+  display: flex;
+  align-items: center;
+}
+
+.slider-value-input {
+  width: 60px;
+  height: 24px;
+  padding: 0 8px;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--card-bg);
+  color: var(--primary-color);
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: var(--nm-inner-shadow);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.slider-value-input:focus {
+  outline: none;
+  box-shadow: inset 0 0 0 1px var(--primary-color), var(--nm-inner-shadow);
+  transform: scale(1.02);
+}
+
+.slider-value-input::-webkit-inner-spin-button,
+.slider-value-input::-webkit-outer-spin-button {
+  opacity: 0.3;
+  height: 24px;
+}
+
+.slider-value-input:hover {
+  box-shadow: inset 0 0 0 1px var(--primary-color), var(--nm-inner-shadow);
+}
+
+.channel-test-wrapper {
+  border-bottom: 1px solid rgba(233, 69, 96, 0.1);
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
+
+.channel-test-label {
+  display: flex;
+  justify-content: space-between;
+}
+
+.channel-number-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.channel-number-input {
+  width: 45px;
+  height: 24px;
+  padding: 0 8px;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: var(--nm-inner-shadow);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.channel-number-input:focus {
+  outline: none;
+  box-shadow: inset 0 0 0 1px var(--primary-color), var(--nm-inner-shadow);
+  transform: scale(1.02);
+}
+
+.channel-number-input::-webkit-inner-spin-button,
+.channel-number-input::-webkit-outer-spin-button {
+  opacity: 0.3;
+  height: 24px;
+}
+
+.channel-number-input:hover {
+  box-shadow: inset 0 0 0 1px var(--primary-color), var(--nm-inner-shadow);
+}
+
+.test-description {
+  margin-bottom: 15px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--text-secondary);
+}
+
+.test-actions-container {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+}
+
+.success-button {
+  background-color: var(--success-color);
+  color: white;
+}
+
+.danger-button {
+  background-color: var(--error-color);
+  color: white;
+}
+
+.success-button:hover, .danger-button:hover {
+  transform: translateY(-2px);
+  color: white;
+}
+
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 10px;
+  border-radius: 5px;
+  background: var(--card-bg);
+  outline: none;
+  box-shadow: var(--nm-inner-shadow);
+  transition: background 0.3s;
+  position: relative;
+}
+
+.slider::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  background: transparent;
+}
+
+.slider::-moz-range-track {
+  width: 100%;
+  height: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  cursor: pointer;
+  border: 3px solid var(--card-bg);
+  margin-top: -5px;
+  box-shadow: 0 0 5px var(--primary-shadow);
+  transition: transform 0.2s, box-shadow 0.2s;
+  z-index: 2;
+}
+
+.slider::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 8px var(--primary-shadow);
+}
+
+.slider::-webkit-slider-thumb:active {
+  transform: scale(0.9);
+}
+
+.slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  cursor: pointer;
+  border: 3px solid var(--card-bg);
+  box-shadow: 0 0 5px var(--primary-shadow);
+  transition: transform 0.2s, box-shadow 0.2s;
+  z-index: 2;
+}
+
+.slider::-moz-range-thumb:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 8px var(--primary-shadow);
+}
+
+.slider::-moz-range-thumb:active {
+  transform: scale(0.9);
+}
+
+.slider-progress {
+  position: relative;
+  width: 100%;
+}
+
+.theme-toggle-wrapper {
+  position: relative;
+  width: 60px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.theme-toggle {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.toggle-slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--card-bg);
+  border-radius: 30px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: var(--nm-inner-shadow);
+}
+
+.toggle-slider:before {
+  position: absolute;
+  content: '';
+  height: 24px;
+  width: 24px;
+  left: 3px;
+  bottom: 3px;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  transition: 0.3s;
+  box-shadow: 0 0 5px var(--primary-shadow);
+}
+
+.theme-toggle:checked + .toggle-slider:before {
+  transform: translateX(30px);
+}
